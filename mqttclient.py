@@ -1,4 +1,5 @@
 import paho.mqtt.client as mqtt
+import paho.mqtt.publish as publish
 import datetime
 import RPi.GPIO as GPIO
 import time
@@ -38,6 +39,9 @@ def on_message(client, userdata, msg):
         print("the message is YES :)")
         #Turn on the LED
         turn_on_led()
+        #send message to iOS app
+        publish.single("CoreHart/reply", "LED powered on", hostname="test.mosquitto.org")
+
         
         
 #Create an MQTT client and attach our routines to it.
